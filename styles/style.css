@@ -1,0 +1,574 @@
+/* -- propiedades generales -- */
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+}
+body {
+  font-family: "Bebas Neue", Courier, cursive;
+}
+.clMedio{
+  color: #797979;
+}
+/* -- valores de colores para modo oscuro -- */
+.bgPrimarioOscuro {
+  background-color: #333;
+}
+.bgSecundarioOscuro {
+  background-color: #4d5164dd;
+}
+.clOscuro {
+  color: #d3d9f9;
+}
+.destacadoOscuro {
+  color: #7989da;
+}
+/* -- valores de colores para modo claro -- */
+.bgPrimarioClaro {
+  background-color: #d3d9f9;
+}
+.bgSecundarioClaro {
+  background-color: #a3aeec;
+}
+.clClaro {
+  color: #333;
+}
+.destacadoClaro {
+  color: #394bac;
+}
+/* -- header -- */
+.cabecera {
+  width: 100%;
+  height: 15%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3vw 3vw 0 3vw;
+  position: fixed;
+  z-index: 10;
+}
+/* -- nombre de página -- */
+h1 {
+  font-size: 15vw;
+}
+/* -- ícono menu -- */
+#menuIcono {
+  font-size: 15vw;
+  margin-right: 3vw;
+}
+#menuIcono:hover {
+  text-shadow: 0px 0px 15px #d3d9f9;
+  cursor: pointer;
+}
+/* -- menu desplegable -- */
+.menuDesplegable {
+  font-size: 10vw;
+  padding: 3vw;
+  position: fixed;
+  top: 20vw;
+  border-radius: 10px;
+}
+.oculto {
+  display: none;
+}
+.liSelec, .menuDesplegable li:hover, .iconoModo:hover{
+  cursor: pointer;
+  color: #7989da;
+  text-shadow: 0px 0px 15px #7989da;
+}
+/* -- main -- */
+/* -- contenido principal -- */
+.peliPrincipal {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url(https://cdn.colombia.com/sdi/2022/01/14/spider-man-no-way-home-nuevo-poster-mes-de-estreno-marvel-studios-sony-987506.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  padding: 15vw;
+  gap: 3vw;
+  color: #d3d9f9;
+}
+/* -- contenido secundario -- */
+.contSecundario h3,
+.contSecundario h4 {
+  text-align: center;
+  padding: 10vw 6vw 6vw 6vw;
+  border-bottom: solid 3px #7989da55;
+}
+.contGaleria {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 2vw;
+}
+.contPeli {
+  padding-top: 4vw;
+  text-align: center;
+  width: 45vw;
+}
+.contPeli img {
+  width: 45vw;
+  height: 65vw;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+.contPeli img:hover {
+  transform: scale(1.1);
+}
+/* -- tabla -- */
+table {
+  width: 100%;
+  padding: 1vw;
+  text-align: center;
+  font-size: 3vw;
+}
+th {
+  background-color: #7289da22;
+  border: 1px solid #7289da55;
+}
+td {
+  padding: .7vw;
+  border-bottom: 1px solid #7989da;
+}
+/* -- preguntas frecuentes -- */
+.pregFrec {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2vw 15vw 2vw 15vw;
+}
+.txtOculto {
+  text-align: justify;
+  padding: 0 10vw 2vw 10vw;
+}
+/*  -- msj -- */
+.error{
+  color: #ff6464;
+}
+.exito{
+  color: #61fe61;
+}
+/* -- footer -- */
+.pieDePagina {
+  text-align: center;
+  padding: 5vw 0 2vw 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* -- infoPelis -- */
+.contInfoPelis {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 4vw;
+}
+.peliculaContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5vw;
+}
+.portadaPelicula {
+  width: 100%;
+  max-width: 550px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+/* -- infoPelis detalles -- */
+.otrosDetalles {
+  width: 90vw;
+}
+.infoDetalle {
+  text-align: center;
+}
+.infoDetalle p {
+  padding: 1vw;
+}
+.genero {
+  font-style: italic;
+}
+.opciones,
+.btnsPelis {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 2vw;
+}
+.verTrailer {
+  width: 108px;
+  height: 37px;
+  padding: 10px 20px;
+  background-color: #7289da;
+  border-radius: 5px;
+  font-size: 16px;
+  text-align: center;
+  color: #ddd;
+  border: #5f73a1;
+}
+.verTrailer:hover {
+  background-color: #5f73a1;
+}
+.detalles,
+.quizasGuste {
+  cursor: pointer;
+}
+.seleccionado {
+  font-weight: bold;
+  border-bottom: 2px solid #7289da;
+}
+.opcVista {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.peliculasSimilares {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.peliculasSimilares img {
+  width: 25vw;
+  height: 35vw;
+  margin: 0 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+.peliculasSimilares img:hover {
+  transform: scale(1.05);
+}
+/* -- listado favoritas -- */
+#peliculas{
+  padding: 18vw 6vw 6vw 6vw;
+}
+/* -- lista -- */
+.contListaImg {
+  width: 100%;
+  padding: 5vw;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.lista li {
+  font-size: 4vw;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.lista li:hover {
+  color: #7289da;
+  transform: scale(1.1);
+}
+.imgFav img {
+  width: 24vw;
+  height: 34vw;
+  border-radius: 5px;
+}
+/* -- listado favoritas -- */
+/* -- tabla -- */
+.contTablaFav table {
+  font-size: 1.7vw;
+  padding: 0.8vw;
+}
+/* -- listado favoritas -- */
+/* -- formulario -- */
+#formDinamico{
+  text-align: center;
+}
+#formDinamico input,
+#formDinamico textarea {
+  width: 50%;
+  height: 100%;
+  padding: 1vw;
+  text-align: center;
+  font-weight: bold;
+  background-color: transparent;
+  resize: none;
+}
+#formDinamico button,
+.btnFav {
+  background-color: #7289da;
+  font-size: 1.6vw;
+  padding: 0.3vw;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin: 1vw 0;
+}
+#formDinamico button:hover {
+  background-color: #5067b8;
+}
+.btnFav:hover{
+  background-color: #5067b8;
+}
+#contMsj{
+  text-align: center;
+}
+/* -- formAcceso -- */
+.formAcceso {
+  padding: 8vw 0 0 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.formContenido {
+  width: 100%;
+  max-width: 450px;
+  background-color: transparent;
+  padding: 50px 60px 70px;
+  text-align: center;
+  border-radius: 25px;
+  box-shadow: 0px 0px 35px #0006;
+}
+.formContenido h1 {
+  font-size: 30px;
+  margin-bottom: 60px;
+  position: relative;
+}
+.formContenido h1::after {
+  content: "";
+  width: 30px;
+  height: 4px;
+  border-radius: 3px;
+  background-color: #7289da;
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.inputCampo {
+  background-color: transparent;
+  margin: 15px 0;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  transition: max-height 0.5s;
+  overflow: hidden;
+  border-bottom: 1px solid #7989da;
+  width: 100%;
+}
+input, textarea {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 18px 15px;
+}
+.inputCampo:hover {
+  background-color: #8a8d9b33;
+}
+.inputCampo i {
+  margin-left: 15px;
+  color: #7289da;
+}
+form p {
+  text-align: center;
+  font-size: 13px;
+  padding: 1vw;
+}
+span {
+  font-weight: bold;
+}
+form p span:hover {
+  cursor: pointer;
+}
+.captchaInput:hover {
+  background-color: #8a8d9b33;
+  border-radius: 10px;
+}
+.btnCampo {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.btnCampo button {
+  flex-basis: 48%;
+  font-size: 16px;
+  background-color: #7289da;
+  height: 40px;
+  border-radius: 10px;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btnCampo button:hover {
+  background-color: #5067b8;
+}
+.inputGrupo {
+  height: 100%;
+}
+.contenedorCaptcha {
+  margin: 2vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#captchaInput {
+  text-align: center;
+}
+.captcha {
+  padding: 5px;
+  border: 1px solid #7989da;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/* -- puntos de quiebre -- */
+@media (width >= 481px) {
+  h1 {
+    font-size: 8vw;
+  }
+  h2 {
+    font-size: 7vw;
+  }
+  h3 {
+    font-size: 5vw;
+  }
+  h4 {
+    font-size: 4vw;
+  }
+  p {
+    font-size: 3vw;
+  }
+  #menuIcono {
+    font-size: 8vw;
+  }
+  .menuDesplegable {
+    font-size: 5vw;
+    top: 13vw;
+  }
+  .peliPrincipal {
+    padding: 7vw;
+    gap: 1vw;
+    font-size: 2.8vw;
+  }
+  .contPeli {
+    width: 30vw;
+  }
+  .contPeli img {
+    width: 30vw;
+    height: 42vw;
+  }
+}
+@media (width >= 768px) {
+  h1 {
+    font-size: 7vw;
+  }
+  h2 {
+    font-size: 5vw;
+  }
+  h3 {
+    font-size: 4vw;
+  }
+  h4 {
+    font-size: 3vw;
+  }
+  p {
+    font-size: 2vw;
+  }
+  #menuIcono {
+    display: none;
+  }
+  .menuDesplegable {
+    display: block;
+    width: 70%;
+    height: 6vw;
+    position: relative;
+    top: 0;
+    padding: 1vw;
+  }
+  .menuDesplegable ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 4vw;
+  }
+  .peliPrincipal {
+    font-size: 2.5vw;
+  }
+  .contPeli {
+    width: 23vw;
+  }
+  .contPeli img {
+    width: 23vw;
+    height: 31vw;
+  }
+  .contSecundario h3,
+  .contSecundario h4 {
+    padding: 9vw 6vw 2vw 6vw;
+  }
+  /* infoPelis */
+  .contInfoPelis {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .peliculaContainer {
+    padding: 12vw 1vw 1vw 1vw;
+    width: 40%;
+  }
+  .otrosDetalles {
+    margin-top: 10vw;
+    width: 55vw;
+  }
+  .infoDetalle p,
+  .opciones span {
+    font-size: 2.5vw;
+  }
+  .peliculasSimilares img {
+    width: 15vw;
+    height: auto;
+  }
+  /* tabla info general*/
+  table {
+    font-size: 2vw;
+  }
+}
+@media (width >= 980px) {
+  h1 {
+    font-size: 5vw;
+  }
+  .menuDesplegable ul {
+    font-size: 3vw;
+  }
+  .peliPrincipal {
+    font-size: 2vw;
+    padding-bottom: 2vw;
+    gap: 0.5vw;
+  }
+  .contPeli {
+    width: 15vw;
+  }
+  .contPeli img {
+    width: 15vw;
+    height: 22vw;
+  }
+  .otrosDetalles {
+    margin-top: 15vw;
+  }
+  .opciones {
+    padding: 2vw 4vw 2vw 4vw;
+  }
+  /* lista favoritas*/
+  .lista li {
+    font-size: 3vw;
+  }
+}

@@ -1,0 +1,99 @@
+<div class="formAcceso">
+  <div id="formAcceder" class="formContenido">
+    <h1 id="titulo">Acceder</h1>
+    <form id="miForm">
+      <div class="inputGrupo">
+        <div class="inputCampo">
+          <i class="fa-solid fa-envelope"></i>
+          <input
+            type="email"
+            maxlength="30"
+            placeholder="Correo electrónico"
+            autocomplete="email"
+            autofocus
+            required
+          />
+        </div>
+        <div class="inputCampo">
+          <i class="fa-solid fa-lock"></i>
+          <input
+            type="password"
+            maxlength="30"
+            placeholder="Contraseña"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+        <p>
+          ¿Olvidaste tu Contraseña?
+          <span class="btnRecuperar">Haz clic aquí</span>
+        </p>
+        <p>
+          ¿Aún no tienes acceso?
+          <span class="btnRegistrate">Regístrate</span>
+        </p>
+      </div>
+      <div class="contenedorCaptcha">
+        <i id="captcha" class="captcha"></i>
+        <input
+          type="text"
+          maxlength="6"
+          id="captchaInput"
+          class="captchaInput"
+          placeholder="Verifique aquí el código"
+          required
+        />
+      </div>
+      <div class="btnCampo">
+        <button type="submit">Iniciar sesión</button>
+      </div>
+    </form>
+  </div>
+  <div id="formRecuperar" class="formContenido oculto">
+    <h1 id="titulo">Recuperar</h1>
+    <p>Enviaremos un link a tu correo para recuperar la contraseña</p>
+    <form class="miFormRe">
+      <div class="inputGrupo">
+        <div class="inputCampo">
+          <i class="fa-solid fa-envelope"></i>
+          <input
+            type="email"
+            maxlength="30"
+            placeholder="Correo electrónico"
+            autocomplete="email"
+            required
+          />
+        </div>
+      </div>
+      <p class="respForm oculto">Mail enviado, continúe desde su correo.</p>
+      <div class="btnCampo">
+        <button id="recuperar" type="submit">Enviar</button>
+      </div>
+    </form>
+  </div>
+  <div id="formRegistrar" class="formContenido oculto">
+    <h1 id="titulo">Registrarse</h1>
+    <form class="miFormRe">
+      <div class="inputGrupo">
+        <div class="inputCampo" id="inputNombre">
+          <i class="fa-solid fa-user"></i>
+          <input type="text" placeholder="Nombre" autocomplete="name" required />
+        </div>
+        <div class="inputCampo">
+          <i class="fa-solid fa-envelope"></i>
+          <input
+            type="email"
+            maxlength="30"
+            placeholder="Correo electrónico"
+            autocomplete="email"
+            required
+          />
+        </div>
+      </div>
+      <p class="respForm oculto">Validaremos sus datos desde su correo.</p>
+      <div class="btnCampo">
+        <button id="acceder" type="submit">Registrarse</button>
+      </div>
+    </form>
+  </div>
+</div>
