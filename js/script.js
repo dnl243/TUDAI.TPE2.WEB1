@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* -- INDEX -- */
 
   let bgPrimario, bgSecundario, clFuente, destacado, modoClaro;
+  let contPrincipal = document.querySelector("#contPrincipal");
 
   // mostrar en consola y DOM ( mensaje, clase )
   function mostrarMsj(mensaje, clase) {
@@ -44,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //solicitamos y cargamos contenido
   async function cargarContenido(id) {
-    let contPrincipal = document.querySelector("#contPrincipal");
     contPrincipal.innerHTML = "<h2>Cargando contenido..</h2>";
     try {
       let res = await fetch(`html/${id}.html`);
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function ejecutar(event) {
+  function navegar(event) {
     // obtenemos el id
     let id = event.target.id;
     //destacamos selección
@@ -88,13 +88,13 @@ document.addEventListener("DOMContentLoaded", () => {
   establecerOscuro();
   document
     .querySelector("#home")
-    .addEventListener("click", (event) => ejecutar(event));
+    .addEventListener("click", (event) => navegar(event));
   document
     .querySelector("#favoritas")
-    .addEventListener("click", (event) => ejecutar(event));
+    .addEventListener("click", (event) => navegar(event));
   document
     .querySelector("#acceso")
-    .addEventListener("click", (event) => ejecutar(event));
+    .addEventListener("click", (event) => navegar(event));
 
   //navegación desde browser ( <- / ->)
   window.addEventListener("popstate", (event) => {
@@ -200,6 +200,73 @@ document.addEventListener("DOMContentLoaded", () => {
         e.lastElementChild.classList.toggle("bi-x");
       });
     });
+
+    //click en article para detalle de película
+    document
+      .querySelectorAll(".contPeli")
+      .forEach((e) => e.addEventListener("click", () => buscarDetalle(e.id)));
+  }
+
+  /* -- DETALLE DE PELÍCULA -- */
+
+  function buscarDetalle(id) {
+    document.title = id;
+    cargarDetalle(id);
+    location.pathname === `/${id}`
+      ? window.history.replaceState({ id }, `${id}`, id)
+      : window.history.pushState({ id }, `${id}`, id);
+  }
+
+  async function cargarDetalle(id) {
+    try {
+      let res = await fetch(`html/${id}.html`);
+      if (res.ok) {
+        let txt = await res.text();
+        contPrincipal.innerHTML = txt;
+        modoClaro ? establecerClaro() : establecerOscuro();
+        configJsDetalles();
+      } else {
+        mostrarMsj("Ha ocurrido un error", "error");
+      }
+    } catch (error) {
+      mostrarMsj(error, "error");
+    }
+  }
+
+  function configJsDetalles() {
+    //mostrar contenido Detalles/Quzas tambien te guste
+    const btnDetalles = document.querySelector(".detalles");
+    const btnQuizasGuste = document.querySelector(".quizasGuste");
+    const contenidoDetalles = document.querySelector(".contenidoDetalles");
+    const contenidoQuizasGuste = document.querySelector(
+      ".contenidoQuizasGuste"
+    );
+
+    function selecContenido(btn1, btn2, cont1, cont2) {
+      btn1.addEventListener("click", () => {
+        btn1.classList.toggle("seleccionado");
+        btn2.classList.toggle("seleccionado");
+        cont1.classList.toggle("opcVista");
+        cont1.classList.toggle("oculto");
+        cont2.classList.toggle("opcVista");
+        cont2.classList.toggle("oculto");
+      });
+    }
+    selecContenido(
+      btnDetalles,
+      btnQuizasGuste,
+      contenidoDetalles,
+      contenidoQuizasGuste
+    );
+    selecContenido(
+      btnQuizasGuste,
+      btnDetalles,
+      contenidoQuizasGuste,
+      contenidoDetalles
+    );
+    document
+      .querySelectorAll(".peliculasSimilares img")
+      .forEach((e) => e.addEventListener("click", () => buscarDetalle(e.id)));
   }
 
   /* -- FAVORITAS -- */
