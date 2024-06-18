@@ -41,21 +41,21 @@ body {
 /* -- header -- */
 .cabecera {
   width: 100%;
-  height: 15%;
+  height: 12%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 3vw 3vw 0 3vw;
+  padding: 2vw 2vw 0 2vw;
   position: fixed;
   z-index: 10;
 }
 /* -- nombre de página -- */
 h1 {
-  font-size: 15vw;
+  font-size: 12vw;
 }
 /* -- ícono menu -- */
 #menuIcono {
-  font-size: 15vw;
+  font-size: 12vw;
   margin-right: 3vw;
 }
 #menuIcono:hover {
@@ -64,7 +64,7 @@ h1 {
 }
 /* -- menu desplegable -- */
 .menuDesplegable {
-  font-size: 10vw;
+  font-size: 8vw;
   padding: 3vw;
   position: fixed;
   top: 20vw;
@@ -128,7 +128,7 @@ table {
   width: 100%;
   padding: 1vw;
   text-align: center;
-  font-size: 3vw;
+  font-size: 2.5vw;
 }
 th {
   background-color: #7289da22;
@@ -172,7 +172,7 @@ td {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 4vw;
+  font-size: 3vw;
 }
 .peliculaContainer {
   display: flex;
@@ -212,7 +212,7 @@ td {
   padding: 10px 20px;
   background-color: #7289da;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 15px;
   text-align: center;
   color: #ddd;
   border: #5f73a1;
@@ -263,7 +263,7 @@ td {
   align-items: center;
 }
 .lista li {
-  font-size: 4vw;
+  font-size: 3vw;
   cursor: pointer;
   transition: transform 0.3s;
 }
@@ -279,7 +279,7 @@ td {
 /* -- listado favoritas -- */
 /* -- tabla -- */
 .contTablaFav table {
-  font-size: 1.7vw;
+  font-size: 1.5vw;
   padding: 0.8vw;
 }
 /* -- listado favoritas -- */
@@ -300,7 +300,7 @@ td {
 #formDinamico button,
 .btnFav {
   background-color: #7289da;
-  font-size: 1.6vw;
+  font-size: 1.4vw;
   padding: 0.3vw;
   border-radius: 10px;
   cursor: pointer;
@@ -377,7 +377,7 @@ input, textarea {
 }
 form p {
   text-align: center;
-  font-size: 13px;
+  font-size: 11px;
   padding: 1vw;
 }
 span {
@@ -397,7 +397,7 @@ form p span:hover {
 }
 .btnCampo button {
   flex-basis: 48%;
-  font-size: 16px;
+  font-size: 14px;
   background-color: #7289da;
   height: 40px;
   border-radius: 10px;
@@ -413,7 +413,6 @@ form p span:hover {
   height: 100%;
 }
 .contenedorCaptcha {
-  margin: 2vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -433,31 +432,31 @@ form p span:hover {
 /* -- puntos de quiebre -- */
 @media (width >= 481px) {
   h1 {
-    font-size: 8vw;
+    font-size: 6vw;
   }
   h2 {
-    font-size: 7vw;
+    font-size: 5vw;
   }
   h3 {
-    font-size: 5vw;
-  }
-  h4 {
     font-size: 4vw;
   }
-  p {
+  h4 {
     font-size: 3vw;
   }
+  p {
+    font-size: 2.5vw;
+  }
   #menuIcono {
-    font-size: 8vw;
+    font-size: 6vw;
   }
   .menuDesplegable {
-    font-size: 5vw;
+    font-size: 4vw;
     top: 13vw;
   }
   .peliPrincipal {
     padding: 7vw;
     gap: 1vw;
-    font-size: 2.8vw;
+    font-size: 2.6vw;
   }
   .contPeli {
     width: 30vw;
@@ -469,19 +468,19 @@ form p span:hover {
 }
 @media (width >= 768px) {
   h1 {
-    font-size: 7vw;
-  }
-  h2 {
     font-size: 5vw;
   }
-  h3 {
+  h2 {
     font-size: 4vw;
   }
-  h4 {
+  h3 {
     font-size: 3vw;
   }
+  h4 {
+    font-size: 2.5vw;
+  }
   p {
-    font-size: 2vw;
+    font-size: 1.7vw;
   }
   #menuIcono {
     display: none;
@@ -498,10 +497,10 @@ form p span:hover {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    font-size: 4vw;
+    font-size: 3vw;
   }
   .peliPrincipal {
-    font-size: 2.5vw;
+    font-size: 2.2vw;
   }
   .contPeli {
     width: 23vw;
@@ -531,7 +530,7 @@ form p span:hover {
   }
   .infoDetalle p,
   .opciones span {
-    font-size: 2.5vw;
+    font-size: 2.2vw;
   }
   .peliculasSimilares img {
     width: 15vw;
@@ -544,10 +543,7 @@ form p span:hover {
 }
 @media (width >= 980px) {
   h1 {
-    font-size: 5vw;
-  }
-  .menuDesplegable ul {
-    font-size: 3vw;
+    font-size: 4vw;
   }
   .peliPrincipal {
     font-size: 2vw;
@@ -569,6 +565,6 @@ form p span:hover {
   }
   /* lista favoritas*/
   .lista li {
-    font-size: 3vw;
+    font-size: 2.5vw;
   }
 }

@@ -3,7 +3,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   /* -- INDEX -- */
 
-  // mostrar en consola y DOM ( mensaje, clase)
+  let bgPrimario, bgSecundario, clFuente, destacado, modoClaro;
+
+  // mostrar en consola y DOM ( mensaje, clase )
   function mostrarMsj(mensaje, clase) {
     console.log(mensaje);
     const msj = document.querySelector("#msj");
@@ -49,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (res.ok) {
         let txt = await res.text();
         contPrincipal.innerHTML = txt;
-        configModo();
+        modoClaro ? establecerClaro() : establecerOscuro();
         configJs(id);
       } else {
         mostrarMsj("Ha ocurrido un error", "error");
@@ -82,6 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
     window.history.pushState({ id }, `${id}`, id);
   }
 
+  cargarPorDefecto("home");
+  establecerOscuro();
   document
     .querySelector("#home")
     .addEventListener("click", (event) => ejecutar(event));
@@ -91,7 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelector("#acceso")
     .addEventListener("click", (event) => ejecutar(event));
-  cargarPorDefecto("home");
 
   //navegación desde browser ( <- / ->)
   window.addEventListener("popstate", (event) => {
@@ -111,45 +114,79 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   menuIcono.addEventListener("click", desplegar);
 
-  //ocultar menú desplegable al seleccionar opción
-  document
-    .querySelectorAll(".menuDesplegable li a")
-    .forEach((e) => e.addEventListener("click", desplegar));
+  //modo claro/oscuro (oscuro por defecto)
 
-  let bgPrimario = document.querySelectorAll("body");
-  let bgSecundario = document.querySelectorAll(".menuDesplegable");
-  let clFuente = document.querySelectorAll(
-    "body, h1, .menuDesplegable a, .menuDesplegable i, input, textarea, button, #captcha, .info, .genero"
-  );
-  let destacado = document.querySelectorAll(
-    "h1 span, form span, #resultadoCaptcha, .respForm"
-  );
-
-  let modoBgPrimario = "bgPrimarioOscuro", modoBgSecundario = "bgSecundarioOscuro", modoClFuente = "clOscuro", modoDestacado = "destacadoOscuro";
-
-  function configModo() {
-    //modo claro/oscuro (oscuro por defecto)
-    bgPrimario.forEach((e) => e.classList.add(modoBgPrimario));
-    bgSecundario.forEach((e) => e.classList.add(modoBgSecundario));
-    clFuente.forEach((e) => e.classList.add(modoClFuente));
-    destacado.forEach((e) => e.classList.add(modoDestacado));
+  function configModoAdd(bg1, bg2, cl, des) {
+    bgPrimario = document.querySelectorAll("body");
+    bgPrimario.forEach((e) => e.classList.add(bg1));
+    bgSecundario = document.querySelectorAll(".menuDesplegable");
+    bgSecundario.forEach((e) => e.classList.add(bg2));
+    clFuente = document.querySelectorAll(
+      "body, h1, .menuDesplegable a, .menuDesplegable i, input, textarea, button, #captcha, .info, .genero"
+    );
+    clFuente.forEach((e) => e.classList.add(cl));
+    destacado = document.querySelectorAll(
+      "h1 span, form span, #resultadoCaptcha, .respForm"
+    );
+    destacado.forEach((e) => e.classList.add(des));
   }
 
-  function cambiarModo(arreglo, clase1, clase2) {
-    arreglo.forEach((e) => {
-      e.classList.toggle(clase1);
-      e.classList.toggle(clase2);
-    });
+  function configModoRemove(bg1, bg2, cl, des) {
+    bgPrimario = document.querySelectorAll("body");
+    bgPrimario.forEach((e) => e.classList.remove(bg1));
+    bgSecundario = document.querySelectorAll(".menuDesplegable");
+    bgSecundario.forEach((e) => e.classList.remove(bg2));
+    clFuente = document.querySelectorAll(
+      "body, h1, .menuDesplegable a, .menuDesplegable i, input, textarea, button, #captcha, .info, .genero"
+    );
+    clFuente.forEach((e) => e.classList.remove(cl));
+    destacado = document.querySelectorAll(
+      "h1 span, form span, #resultadoCaptcha, .respForm"
+    );
+    destacado.forEach((e) => e.classList.remove(des));
+  }
+
+  function establecerOscuro() {
+    configModoRemove(
+      "bgPrimarioClaro",
+      "bgSecundarioClaro",
+      "clClaro",
+      "destacadoClaro"
+    );
+    configModoAdd(
+      "bgPrimarioOscuro",
+      "bgSecundarioOscuro",
+      "clOscuro",
+      "destacadoOscuro"
+    );
+  }
+
+  function establecerClaro() {
+    configModoRemove(
+      "bgPrimarioOscuro",
+      "bgSecundarioOscuro",
+      "clOscuro",
+      "destacadoOscuro"
+    );
+    configModoAdd(
+      "bgPrimarioClaro",
+      "bgSecundarioClaro",
+      "clClaro",
+      "destacadoClaro"
+    );
   }
 
   const iconoModo = document.querySelector(".iconoModo");
   iconoModo.addEventListener("click", () => {
     iconoModo.classList.toggle("bi-moon-fill");
     iconoModo.classList.toggle("bi-sun-fill");
-    cambiarModo(bgPrimario, "bgPrimarioOscuro", "bgPrimarioClaro");
-    cambiarModo(bgSecundario, "bgSecundarioOscuro", "bgSecundarioClaro");
-    cambiarModo(clFuente, "clOscuro", "clClaro");
-    cambiarModo(destacado, "destacadoOscuro", "destacadoClaro");
+    if (!modoClaro) {
+      establecerClaro();
+      modoClaro = true;
+    } else {
+      establecerOscuro();
+      modoClaro = false;
+    }
   });
 
   /* -- HOME -- */
