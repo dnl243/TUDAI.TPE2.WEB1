@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     destacarBtnNav(id);
     document.title = id;
     cargarContenido(id);
-    window.history.pushState({ id }, `${id}`, id);
+    window.history.replaceState({ id }, `${id}`, id);
   }
 
   cargarPorDefecto("home");

@@ -82,7 +82,7 @@ h1 {
 /* -- contenido principal -- */
 .peliPrincipal {
   background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url(https://cdn.colombia.com/sdi/2022/01/14/spider-man-no-way-home-nuevo-poster-mes-de-estreno-marvel-studios-sony-987506.jpg);
+    url(../img/spidermanNoWayHome.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
