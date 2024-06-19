@@ -380,9 +380,6 @@ form p {
   font-size: 11px;
   padding: 1vw;
 }
-span {
-  font-weight: bold;
-}
 form p span:hover {
   cursor: pointer;
 }
