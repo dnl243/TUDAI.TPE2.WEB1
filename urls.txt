@@ -1,0 +1,5 @@
+-- Servicio REST --
+  url = "https://6665bc91d122c2868e419690.mockapi.io/api/peliculas"
+
+-- Servicio de hosting GITHUB --
+  url = "https://dnl243.github.io/TUDAI.TPE2.WEB1/"

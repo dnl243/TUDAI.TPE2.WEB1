@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // mostrar en consola y DOM ( mensaje, clase )
   function mostrarMsj(mensaje, clase) {
-    console.log(mensaje);
     const msj = document.querySelector("#msj");
     msj.innerHTML = mensaje;
     msj.className = clase;
@@ -51,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (res.ok) {
         let txt = await res.text();
         contPrincipal.innerHTML = txt;
-        modoClaro ? establecerClaro() : establecerOscuro();
+        modoClaro ? establecerModoClaro() : establecerModoOscuro();
         configJs(id);
       } else {
         mostrarMsj("Ha ocurrido un error", "error");
@@ -85,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   cargarPorDefecto("home");
-  establecerOscuro();
+  establecerModoOscuro();
   document
     .querySelector("#home")
     .addEventListener("click", (event) => navegar(event));
@@ -98,6 +97,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //navegación desde browser ( <- / ->)
   window.addEventListener("popstate", (event) => {
+    if (!event.state) {
+      return;
+    }
     let stateId = event.state.id;
     destacarBtnNav(stateId);
     cargarContenido(stateId);
@@ -117,10 +119,10 @@ document.addEventListener("DOMContentLoaded", () => {
   //modo claro/oscuro (oscuro por defecto)
 
   function configModoAdd(bg1, bg2, cl, des) {
-    bgPrimario = document.querySelectorAll("body");
-    bgPrimario.forEach((e) => e.classList.add(bg1));
-    bgSecundario = document.querySelectorAll(".menuDesplegable");
-    bgSecundario.forEach((e) => e.classList.add(bg2));
+    bgPrimario = document.querySelector("body");
+    bgPrimario.classList.add(bg1);
+    bgSecundario = document.querySelector(".menuDesplegable");
+    bgSecundario.classList.add(bg2);
     clFuente = document.querySelectorAll(
       "body, h1, .menuDesplegable a, .menuDesplegable i, input, textarea, button, #captcha, .info, .genero"
     );
@@ -132,10 +134,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function configModoRemove(bg1, bg2, cl, des) {
-    bgPrimario = document.querySelectorAll("body");
-    bgPrimario.forEach((e) => e.classList.remove(bg1));
-    bgSecundario = document.querySelectorAll(".menuDesplegable");
-    bgSecundario.forEach((e) => e.classList.remove(bg2));
+    bgPrimario = document.querySelector("body");
+    bgPrimario.classList.remove(bg1);
+    bgSecundario = document.querySelector(".menuDesplegable");
+    bgSecundario.classList.remove(bg2);
     clFuente = document.querySelectorAll(
       "body, h1, .menuDesplegable a, .menuDesplegable i, input, textarea, button, #captcha, .info, .genero"
     );
@@ -146,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
     destacado.forEach((e) => e.classList.remove(des));
   }
 
-  function establecerOscuro() {
+  function establecerModoOscuro() {
     configModoRemove(
       "bgPrimarioClaro",
       "bgSecundarioClaro",
@@ -161,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   }
 
-  function establecerClaro() {
+  function establecerModoClaro() {
     configModoRemove(
       "bgPrimarioOscuro",
       "bgSecundarioOscuro",
@@ -181,10 +183,10 @@ document.addEventListener("DOMContentLoaded", () => {
     iconoModo.classList.toggle("bi-moon-fill");
     iconoModo.classList.toggle("bi-sun-fill");
     if (!modoClaro) {
-      establecerClaro();
+      establecerModoClaro();
       modoClaro = true;
     } else {
-      establecerOscuro();
+      establecerModoOscuro();
       modoClaro = false;
     }
   });
@@ -223,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (res.ok) {
         let txt = await res.text();
         contPrincipal.innerHTML = txt;
-        modoClaro ? establecerClaro() : establecerOscuro();
+        modoClaro ? establecerModoClaro() : establecerModoOscuro();
         configJsDetalles();
       } else {
         mostrarMsj("Ha ocurrido un error", "error");
@@ -252,6 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cont2.classList.toggle("oculto");
       });
     }
+
     selecContenido(
       btnDetalles,
       btnQuizasGuste,
@@ -264,6 +267,7 @@ document.addEventListener("DOMContentLoaded", () => {
       contenidoQuizasGuste,
       contenidoDetalles
     );
+    
     document
       .querySelectorAll(".peliculasSimilares img")
       .forEach((e) => e.addEventListener("click", () => buscarDetalle(e.id)));
@@ -281,6 +285,7 @@ document.addEventListener("DOMContentLoaded", () => {
         )
       );
   }
+
   function imprimirTabla(json) {
     let tBodyPelis = document.querySelector("#tBodyPelis");
     tBodyPelis.innerHTML = "";
@@ -316,9 +321,10 @@ document.addEventListener("DOMContentLoaded", () => {
       let btnEditar = document.createElement("button");
       btnEditar.innerHTML = "Editar";
       btnEditar.setAttribute("class", "btnFav clOscuro");
-      btnEditar.addEventListener("click", () =>
-        traerFormCarga(configEditar, e)
-      );
+      btnEditar.addEventListener("click", (evento) => {
+        evento.preventDefault();
+        traerFormCarga(configEditar, e);
+      });
       anchorEditar.appendChild(btnEditar);
       btnsPeli.appendChild(anchorEditar);
       trNuevo.appendChild(btnsPeli);
@@ -342,19 +348,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // -- FORMULARIO DE CARGA/MODIFICACIÓN --
   function configBtnCargar() {
-    // -- FORMULARIO DE CARGA/MODIFICACIÓN --
     const btnCargar = document.querySelector("#btnCargar");
     btnCargar.addEventListener("click", () => traerFormCarga(configCargar));
-    const contFormDinamico = document.querySelector("#contFormDinamico");
   }
+  
   let form;
+  
   // -- PARTIAL RENDER --
   async function traerFormCarga(callback, id) {
     try {
       let res = await fetch("html/formFav.html");
       if (res.ok) {
         let txt = await res.text();
+        const contFormDinamico = document.querySelector("#contFormDinamico");
         contFormDinamico.innerHTML = txt;
         window.scrollTo({ top: 5000, behavior: "smooth" });
         callback(id);
@@ -452,7 +460,6 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify(datosPeli),
       });
       if (res.ok) {
-        let json = await res.json();
         mostrarMsj("datos modificados correctamente", "exito");
         solicitarDatos();
       }
@@ -468,7 +475,6 @@ document.addEventListener("DOMContentLoaded", () => {
         method: "DELETE",
       });
       if (res.ok) {
-        let json = await res.json();
         mostrarMsj("datos borrados con exito!", "exito");
         solicitarDatos();
       } else {
@@ -509,6 +515,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function cambiarForm(btn, form) {
     btn.addEventListener("click", () => {
+      const formAcceder = document.querySelector("#formAcceder");
       formAcceder.classList.add("oculto");
       form.classList.remove("oculto");
     });
@@ -535,7 +542,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const btnRecuperar = document.querySelector(".btnRecuperar");
     const btnRegistrate = document.querySelector(".btnRegistrate");
-    const formAcceder = document.querySelector("#formAcceder");
+
     const formRecuperar = document.querySelector("#formRecuperar");
     const formRegistrar = document.querySelector("#formRegistrar");
 
