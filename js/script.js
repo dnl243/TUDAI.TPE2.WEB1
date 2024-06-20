@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //modo claro/oscuro (oscuro por defecto)
 
-  function configModoAdd(bg1, bg2, cl, des) {
+  function agregarClases(bg1, bg2, cl, des) {
     bgPrimario = document.querySelector("body");
     bgPrimario.classList.add(bg1);
     bgSecundario = document.querySelector(".menuDesplegable");
@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
     destacado.forEach((e) => e.classList.add(des));
   }
 
-  function configModoRemove(bg1, bg2, cl, des) {
+  function quitarClases(bg1, bg2, cl, des) {
     bgPrimario = document.querySelector("body");
     bgPrimario.classList.remove(bg1);
     bgSecundario = document.querySelector(".menuDesplegable");
@@ -149,13 +149,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function establecerModoOscuro() {
-    configModoRemove(
+    quitarClases(
       "bgPrimarioClaro",
       "bgSecundarioClaro",
       "clClaro",
       "destacadoClaro"
     );
-    configModoAdd(
+    agregarClases(
       "bgPrimarioOscuro",
       "bgSecundarioOscuro",
       "clOscuro",
@@ -164,13 +164,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function establecerModoClaro() {
-    configModoRemove(
+    quitarClases(
       "bgPrimarioOscuro",
       "bgSecundarioOscuro",
       "clOscuro",
       "destacadoOscuro"
     );
-    configModoAdd(
+    agregarClases(
       "bgPrimarioClaro",
       "bgSecundarioClaro",
       "clClaro",
@@ -195,18 +195,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function configHome() {
     //mostrar texto y cambiar "+" por "x" en preguntas frecuentes
-    document.querySelectorAll(".pregFrec").forEach((e) => {
-      e.addEventListener("click", () => {
-        e.nextElementSibling.classList.toggle("oculto");
-        e.lastElementChild.classList.toggle("bi-plus");
-        e.lastElementChild.classList.toggle("bi-x");
+    document.querySelectorAll(".pregFrec").forEach((elem) => {
+      elem.addEventListener("click", () => {
+        elem.nextElementSibling.classList.toggle("oculto");
+        elem.lastElementChild.classList.toggle("bi-plus");
+        elem.lastElementChild.classList.toggle("bi-x");
       });
     });
 
     //click en article para detalle de película
     document
       .querySelectorAll(".contPeli")
-      .forEach((e) => e.addEventListener("click", () => buscarDetalle(e.id)));
+      .forEach((elem) => elem.addEventListener("click", () => buscarDetalle(elem.id)));
   }
 
   /* -- DETALLE DE PELÍCULA -- */
@@ -219,6 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
       : window.history.pushState({ id }, `${id}`, id);
   }
 
+  //carga de detalle de película
   async function cargarDetalle(id) {
     try {
       let res = await fetch(`html/${id}.html`);
@@ -267,10 +268,12 @@ document.addEventListener("DOMContentLoaded", () => {
       contenidoQuizasGuste,
       contenidoDetalles
     );
-    
+
     document
       .querySelectorAll(".peliculasSimilares img")
-      .forEach((e) => e.addEventListener("click", () => buscarDetalle(e.id)));
+      .forEach((elem) =>
+        elem.addEventListener("click", () => buscarDetalle(elem.id))
+      );
   }
 
   /* -- FAVORITAS -- */
@@ -278,10 +281,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function animarLista() {
     document
       .querySelectorAll(".lista ul li")
-      .forEach((e) =>
-        e.addEventListener(
+      .forEach((elem) =>
+        elem.addEventListener(
           "mouseover",
-          () => (document.querySelector(".imgFav img").src = e.id)
+          () => (document.querySelector(".imgFav img").src = elem.id)
         )
       );
   }
@@ -289,23 +292,23 @@ document.addEventListener("DOMContentLoaded", () => {
   function imprimirTabla(json) {
     let tBodyPelis = document.querySelector("#tBodyPelis");
     tBodyPelis.innerHTML = "";
-    json.forEach((e) => {
+    json.forEach((elem) => {
       let trNuevo = document.createElement("tr");
 
       let tdTitulo = document.createElement("td");
-      tdTitulo.innerHTML = e.titulo;
+      tdTitulo.innerHTML = elem.titulo;
       trNuevo.appendChild(tdTitulo);
 
       let tdGenero = document.createElement("td");
-      tdGenero.innerHTML = e.generos;
+      tdGenero.innerHTML = elem.generos;
       trNuevo.appendChild(tdGenero);
 
       let tdLanzam = document.createElement("td");
-      tdLanzam.innerHTML = e.lanzamiento;
+      tdLanzam.innerHTML = elem.lanzamiento;
       trNuevo.appendChild(tdLanzam);
 
       let tdSinopsis = document.createElement("td");
-      tdSinopsis.innerHTML = e.sinopsis;
+      tdSinopsis.innerHTML = elem.sinopsis;
       trNuevo.appendChild(tdSinopsis);
 
       let btnsPeli = document.createElement("td");
@@ -313,7 +316,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let btnBorrar = document.createElement("button");
       btnBorrar.innerHTML = "Borrar";
       btnBorrar.setAttribute("class", "btnFav clOscuro");
-      btnBorrar.addEventListener("click", () => eliminarDatos(e.id));
+      btnBorrar.addEventListener("click", () => eliminarDatos(elem.id));
       btnsPeli.appendChild(btnBorrar);
       //boton editar
       let anchorEditar = document.createElement("a");
@@ -323,7 +326,7 @@ document.addEventListener("DOMContentLoaded", () => {
       btnEditar.setAttribute("class", "btnFav clOscuro");
       btnEditar.addEventListener("click", (evento) => {
         evento.preventDefault();
-        traerFormCarga(configEditar, e);
+        traerFormCarga(configEditar, elem);
       });
       anchorEditar.appendChild(btnEditar);
       btnsPeli.appendChild(anchorEditar);
@@ -353,10 +356,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const btnCargar = document.querySelector("#btnCargar");
     btnCargar.addEventListener("click", () => traerFormCarga(configCargar));
   }
-  
+
   let form;
-  
-  // -- PARTIAL RENDER --
+
+  //carga de formulario
   async function traerFormCarga(callback, id) {
     try {
       let res = await fetch("html/formFav.html");
@@ -393,11 +396,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function configCargar() {
     form = document.querySelector("#formPelis");
-    form.addEventListener("submit", (e) => cargarPeli(e));
+    form.addEventListener("submit", (evento) => cargarPeli(evento));
   }
 
-  function cargarPeli(e) {
-    e.preventDefault();
+  function cargarPeli(evento) {
+    evento.preventDefault();
 
     let formData = new FormData(form);
     let titulo = formData.get("titulo");
@@ -417,18 +420,18 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("#titulo").focus();
   }
 
-  function configEditar(e) {
+  function configEditar(elem) {
     form = document.querySelector("#formPelis");
-    form.addEventListener("submit", (evento) => editarPeli(evento, e));
-    document.querySelector("#titulo").setAttribute("value", e.titulo);
-    document.querySelector("#generos").setAttribute("value", e.generos);
-    document.querySelector("#lanzamiento").setAttribute("value", e.lanzamiento);
-    document.querySelector("#sinopsis").innerHTML = e.sinopsis;
+    form.addEventListener("submit", (evento) => editarPeli(evento, elem));
+    document.querySelector("#titulo").setAttribute("value", elem.titulo);
+    document.querySelector("#generos").setAttribute("value", elem.generos);
+    document.querySelector("#lanzamiento").setAttribute("value", elem.lanzamiento);
+    document.querySelector("#sinopsis").innerHTML = elem.sinopsis;
     document.querySelector("#h3Form").innerHTML = "Editar película";
     document.querySelector("#btnFav").innerHTML = "Editar";
   }
 
-  function editarPeli(evento, e) {
+  function editarPeli(evento, elem) {
     evento.preventDefault();
 
     let formData = new FormData(form);
@@ -443,7 +446,7 @@ document.addEventListener("DOMContentLoaded", () => {
       lanzamiento: lanzamiento,
       sinopsis: sinopsis,
     };
-    modificarDatos(datosPeli, e.id);
+    modificarDatos(datosPeli, elem.id);
 
     form.reset();
     document.querySelector("#titulo").focus();
@@ -489,7 +492,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function configFav() {
-    //capturo pelis de la lista para cambiar img
     animarLista();
     solicitarDatos();
     configBtnCargar();
@@ -551,8 +553,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // form recuperar y registrarse
     document.querySelectorAll(".miFormRe").forEach((form) =>
-      form.addEventListener("submit", (e) => {
-        e.preventDefault();
+      form.addEventListener("submit", (evento) => {
+        evento.preventDefault();
         document
           .querySelectorAll(".respForm")
           .forEach((p) => p.classList.remove("oculto"));
