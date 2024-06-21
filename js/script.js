@@ -384,6 +384,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify(datosPeli),
       });
       if (res.ok) {
+        contFormDinamico.innerHTML = "";
         mostrarMsj("Carga exitosa!", "exito");
         solicitarDatos();
       } else {
@@ -463,6 +464,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify(datosPeli),
       });
       if (res.ok) {
+        contFormDinamico.innerHTML = "";
         mostrarMsj("datos modificados correctamente", "exito");
         solicitarDatos();
       }
