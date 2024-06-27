@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.history.replaceState({ id }, `${id}`, id);
   }
 
+  window.history.state ? cargarPorDefecto(window.history.state.id):
   cargarPorDefecto("home");
   establecerModoOscuro();
   document
