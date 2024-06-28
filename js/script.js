@@ -279,6 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* -- FAVORITAS -- */
   const url = "https://6665bc91d122c2868e419690.mockapi.io/api/peliculas";
+  
   function animarLista() {
     document
       .querySelectorAll(".lista ul li")
@@ -320,8 +321,6 @@ document.addEventListener("DOMContentLoaded", () => {
       btnBorrar.addEventListener("click", () => eliminarDatos(elem.id));
       btnsPeli.appendChild(btnBorrar);
       //boton editar
-      let anchorEditar = document.createElement("a");
-      anchorEditar.setAttribute("href", "#peliculas");
       let btnEditar = document.createElement("button");
       btnEditar.innerHTML = "Editar";
       btnEditar.setAttribute("class", "btnFav clOscuro");
@@ -329,8 +328,7 @@ document.addEventListener("DOMContentLoaded", () => {
         evento.preventDefault();
         traerFormCarga(configEditar, elem);
       });
-      anchorEditar.appendChild(btnEditar);
-      btnsPeli.appendChild(anchorEditar);
+      btnsPeli.appendChild(btnEditar);
       trNuevo.appendChild(btnsPeli);
 
       tBodyPelis.appendChild(trNuevo);
