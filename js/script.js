@@ -85,7 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.history.state ? cargarPorDefecto(window.history.state.id):
   cargarPorDefecto("home");
-  establecerModoOscuro();
   document
     .querySelector("#home")
     .addEventListener("click", (event) => navegar(event));
@@ -279,7 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* -- FAVORITAS -- */
   const url = "https://6665bc91d122c2868e419690.mockapi.io/api/peliculas";
-  
+
   function animarLista() {
     document
       .querySelectorAll(".lista ul li")
